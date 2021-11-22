@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="list-mahasiswa">
+    <tr th:each="mahasiswa:${listData}">
+        <td><a th:text="${mahasiswa.kd_mhs}"></a></td>
+        <td><a th:text="${mahasiswa.nm_mhs}"></a></td>
+        <td><a th:text="${mahasiswa.jk}"></a></td>
+        <td><a th:text="${mahasiswa.alamat}"></a></td>
+        <td><a th:text="${mahasiswa.status}"></a></td>
+        <td><button id="btn-edit" type="submit" class="btn btn-success"  name="update-btn" th:value="${mahasiswa.kd_mhs}">update</button>
+            <button id="btn-hapus" type="button" class="btn btn-danger" th:value="${mahasiswa.kd_mhs}" >hapus</button>
+        </td>
+    </tr>
+    
+</body>
+</html>

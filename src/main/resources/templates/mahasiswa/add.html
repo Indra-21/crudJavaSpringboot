@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/> 
+    <link rel="shortcut icon" href="#" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Add Data</title>
+    <Style>
+        body{
+            font-family : sans-serif;
+            margin : 10%;
+        }
+    </Style>
+</head>
+<body>
+    <form action="/crud/mahasiswa/action"  id="form-add-mahasiswa" method="post">
+        <div class="form-group">
+                <label for="" class="col-form-label">Kode Mahasiswa</label> 
+                <input type="text" name="kodeMahasiswa" id="" class="form-control" placeholder="Kode Mahasiswa">
+        </div>
+        <div class="form-group">
+                <label for="" class="col-form-label">Nama Mahasiswa</label> 
+                <input type="text" name="namaMahasiswa" id="" class="form-control" placeholder="Nama Mahasiswa">
+        </div>
+        <div class="form-group">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="jk" id="inlineRadio1" value="pria">
+                <label class="form-check-label" for="inlineRadio1">Pria</label>
+                &nbsp;
+                <input class="form-check-input" type="radio" name="jk" id="inlineRadio2" value="wanita">
+                <label class="form-check-label" for="inlineRadio2">Wanita</label>
+            </div>
+        </div>
+        <div class="form-group">
+                <label for="alamat-option">Alamat</label>
+                <textarea class="form-control" name="alamat" id="alamatMhs" cols="21" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+                <label for="exampleFormControlSelect1">Status</label>
+                    <select class="form-control" name="status" id="statusId">
+                        <optgroup label="Pilih Status">
+                            <option selected disabled value="PILIH">Pilih Status</option>
+                            <option value="Aktif">Aktif</option>
+                            <option value="Non-Aktif">Non-Aktif</option>
+                        </optgroup>
+                    </select>
+        </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        
+    </form>
+</body>
+</html>

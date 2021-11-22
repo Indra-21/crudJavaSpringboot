@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/> 
+    <link rel="shortcut icon" href="#" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Home</title>
+    <style>
+        body{
+            font-family: sans-serif;
+            margin: 10%;
+        }
+    </style>
+</head>
+<body>
+    <h2>Welcome to proggrammer </h2>
+    <div>
+        <!-- <form action="create/" > -->
+        <div>
+            <button id="btn-add" type="button" >Add Data</button>
+        </div>
+        <br/>
+        <table border="1" class="table table-bordered">
+        <thead>
+            <tr>
+                <td>KODE</td>
+                <td>MAHASISWA</td>
+                <td>GENDER</td>
+                <td>ALAMAT</td>
+                <td>STATUS</td>
+                <td>ACTION</td>
+            </tr>
+        </thead>
+        <tbody id="list-mahasiswa">
+            
+        </tbody>
+        </table>
+        <!-- modal 2 -->
+        <div class="modal fade" id="modal-add-mahasiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="AddMahasiswa">Add/Edit Mahasiswa</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> 
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>modal body text goes here</p>
+                    </div>
+                        <!-- <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div> -->
+                        
+                </div>
+            </div>
+        </div>
+        <!-- </form> -->
+    </div>
+</body>
+<script type="text/javascript">
+    refreshData();
+    // ajax pop up nampilin form Add mahasiswa
+    $('#btn-add').on('click', function(){
+        var kd_mhs = $(this).val()
+        $.ajax({
+            url: '/crud/mahasiswa/add',
+            type: 'get',
+            dataType: 'html',
+            data: { kd_mhs },
+            success: function (result){
+                $('#modal-add-mahasiswa').modal('show');
+                $('#modal-add-mahasiswa').find('.modal-body').html(result);
+            }
+        });
+    });
+
+    $('#modal-add-mahasiswa').on('submit', '#form-add-mahasiswa', function (){
+        // ajax pop up untuk action submit form add mahasiswa
+        $.ajax({
+            url : '/crud/mahasiswa/add',
+            type : 'post',
+            dataType : 'html',
+            data : $(this).serialize(),
+            success: function (result) {
+                alert("data berhasil diinput")
+                $('#modal-add-mahasiswa').modal('hide');
+                refreshData();
+            }
+        });
+        // return false;
+    } );
+// ajax refresh 
+    // refreshData();
+    function refreshData() {
+        $.ajax({
+            url :'/crud/mahasiswa/list',
+            type : 'get',
+            dataType : 'html',
+            success: function (result){
+                $('#list-mahasiswa').html(result);
+            }
+        });
+    }
+// pop up untuk nampilin form edit
+    $('#list-mahasiswa').on('click', '#btn-edit', function (){
+        var kd_mhs = $(this).val();
+        $.ajax({
+            url : '/crud/mahasiswa/edit',
+            type : 'get',
+            dataType : 'html',
+            data : {kd_mhs},
+            success: function (result){
+                $('#modal-add-mahasiswa').modal('show');
+                $('#modal-add-mahasiswa').find('.modal-body').html(result);
+            }
+        });
+    });
+
+    // untuk action submit form edit mahasiswa
+    $('#modal-add-mahasiswa').on('submit', '#form-edit-mahasiswa', function(){
+        $.ajax({
+            url : '/crud/mahasiswa/add',
+            type : 'post',
+            data : $(this).serialize(),
+            success : function (result){
+                alert("data berhasil di update");
+                $('#modal-add-mahasiswa').modal('hide');
+                refreshData();
+            }
+        });
+        // return false;
+    });
+
+    $('#list-mahasiswa').on('click', '#btn-hapus', function (){
+        var kd_mhs = $(this).val();
+        $.ajax({
+            url : '/crud/mahasiswa/remove',
+            type : 'get',
+            dataType : 'html',
+            data : {kd_mhs},
+            success: function (result){
+                $('#modal-add-mahasiswa').modal('show');
+                $('#modal-add-mahasiswa').find('.modal-body').html(result);
+            }
+        });
+    });
+
+    $('#modal-add-mahasiswa').on('submit', '#form-mahasiswa-delete', function(){
+        $.ajax({
+            url : '/crud/mahasiswa/add',
+            type : 'post',
+            data : $(this).serialize(),
+            success : function (result){
+                
+                $('#modal-add-mahasiswa').modal('hide');
+                alert("data berhasil di hapus");
+                refreshData();
+            }
+        });
+        // return false;
+    });
+
+</script>
+</html>
