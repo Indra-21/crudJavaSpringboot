@@ -38,7 +38,7 @@ public class MahasiswaService {
     public void update(MahasiswaModel mahasiswaModel) {
         mahasiswaRepository.save(mahasiswaModel);
     }
-
+    // metod delete nanti di lempar ke mahasiswacontroller
     public void delete(MahasiswaModel mahasiswaModel) {
         mahasiswaRepository.delete(mahasiswaModel);
     }

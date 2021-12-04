@@ -110,6 +110,7 @@
 // pop up untuk nampilin form edit
     $('#list-mahasiswa').on('click', '#btn-edit', function (){
         var kd_mhs = $(this).val();
+        // var nmJurusan = $(this).val();
         $.ajax({
             url : '/crud/mahasiswa/edit',
             type : 'get',
@@ -129,9 +130,10 @@
             type : 'post',
             data : $(this).serialize(),
             success : function (result){
+                refreshData();
                 alert("data berhasil di update");
                 $('#modal-add-mahasiswa').modal('hide');
-                refreshData();
+                
             }
         });
         // return false;
@@ -157,10 +159,10 @@
             type : 'post',
             data : $(this).serialize(),
             success : function (result){
-                
+                refreshData();
                 $('#modal-add-mahasiswa').modal('hide');
                 alert("data berhasil di hapus");
-                refreshData();
+                
             }
         });
         // return false;

@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+// import com.crud.model.JurusanModel;
 import com.crud.model.MahasiswaModel;
+// import com.crud.service.JurusanService;
 import com.crud.service.MahasiswaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,9 @@ public class MahasiswaController {
 
     @Autowired
     MahasiswaService mahasiswaService;
-    // MahasiswaService mahasiswaService = new MahasiswaService();
+
+    // @Autowired
+    // JurusanService jurusanService;
 
     // route mahasiswa
     @RequestMapping("/mahasiswa")
@@ -29,14 +33,17 @@ public class MahasiswaController {
     // route mahasiswa add
     @RequestMapping("/mahasiswa/add")
     public String add() {
+        // this.readJurusan(model);
         String html = "/mahasiswa/add";
         return html;
         
     }
 
-    // route acton setelah submit insert ke db
+    // route action setelah submit insert ke db
     @RequestMapping("/mahasiswa/action")
     public String create(HttpServletRequest request) {
+        // this.join(request);
+        String kJurusan = request.getParameter("kodeJurusan");
         String kodeMahasiswa = request.getParameter("kodeMahasiswa");
         String namaMahasiswa = request.getParameter("namaMahasiswa");
         String alamat = request.getParameter("alamat");
@@ -44,7 +51,8 @@ public class MahasiswaController {
         String status = request.getParameter("status");
 
         MahasiswaModel mahasiswaModel = new MahasiswaModel();
-
+        
+        mahasiswaModel.setKodeJurusan(kJurusan);
         mahasiswaModel.setKd_mhs(kodeMahasiswa);
         mahasiswaModel.setNm_mhs(namaMahasiswa);
         mahasiswaModel.setAlamat(alamat);
@@ -69,15 +77,26 @@ public class MahasiswaController {
     // route untuk edit data menerima lemparan dari ajax kd_mhs
     @RequestMapping("/mahasiswa/edit")
     public String edit(HttpServletRequest request, Model model){
+        // this.editJurusan(request, model);
         String kodeMahasiswa = request.getParameter("kd_mhs");
 
         MahasiswaModel mahasiswaModel = new MahasiswaModel();
         mahasiswaModel = this.mahasiswaService.cariKey(kodeMahasiswa);
 
-        model.addAttribute("editData", mahasiswaModel);      
+        model.addAttribute("editData", mahasiswaModel);
         return "/mahasiswa/edit";
 
     }
+
+    // @RequestMapping("/mahasiswa/editjurusan")
+    // public void editJurusan(HttpServletRequest request, Model model) {
+    //     String kodeJurusan = request.getParameter("nmJurusan");
+
+    //     JurusanModel jurusanModel = new JurusanModel();
+    //     jurusanModel = this.jurusanService.cariPrimary(kodeJurusan);
+
+    //     model.addAttribute("editJurusan", jurusanModel);
+    // }
     // route untuk action setelah submit form edit
     @RequestMapping("/mahasiswa/update")
     public String update(HttpServletRequest request){
@@ -87,7 +106,10 @@ public class MahasiswaController {
         String jenisKelamin = request.getParameter("jk");
         String status = request.getParameter("status");
 
+       
+        
         MahasiswaModel mahasiswaModel = new MahasiswaModel();
+        // JurusanModel jurusanModel = new JurusanModel();
 
         mahasiswaModel.setKd_mhs(kodeMahasiswa);
         mahasiswaModel.setNm_mhs(namaMahasiswa);
@@ -96,9 +118,10 @@ public class MahasiswaController {
         mahasiswaModel.setStatus(status);
 
         this.mahasiswaService.update(mahasiswaModel);
+        
         return "/mahasiswa/home";
     }
-
+    // route untuk button hapus , ambil lemparan dari ajax kdmhs 
     @RequestMapping("/mahasiswa/remove")
     public String remove(HttpServletRequest request, Model model) {
         String kodeMahasiswa = request.getParameter("kd_mhs");
@@ -110,7 +133,7 @@ public class MahasiswaController {
 
         return "mahasiswa/remove";
     }
-
+    // action hapus
     @RequestMapping("/mahasiswa/hapus")
     public String hapus(HttpServletRequest request){
         String kodeMahasiswa = request.getParameter("kodeMahasiswa");
@@ -130,6 +153,40 @@ public class MahasiswaController {
         this.mahasiswaService.delete(mahasiswaModel);
         return "/mahasiswa/home";
     }
+
+    // @RequestMapping("/mahasiswa/jurusan")
+    // public void readJurusan(Model model) {
+    //     List<JurusanModel> jurusanModelList;
+    //     jurusanModelList = this.jurusanService.bacaJurusan();
+
+    //     model.addAttribute("lemparBacaJurusan", jurusanModelList);
+    // }
+
+    // @RequestMapping("/mahasiswa/addJurusan")    
+    // public String insertJurusan(HttpServletRequest request){
+    //     // String kdJurusan = request.getParameter()
+    //     String namaJurusan = request.getParameter("jurusan");
+
+    //     JurusanModel jurusanModel = new JurusanModel();
+
+    //     jurusanModel.setKodeJurusan(namaJurusan);
+
+    //     this.jurusanService.saveJurusan(jurusanModel);
+
+    //     return "mahasiswa/home";
+    // }
+
+    // @RequestMapping("/mahasiswa/join")
+    // public void join(HttpServletRequest request) {
+    //     String kdJurusan = request.getParameter("kodeJurusan");
+    //     String nmJurusan = request.getParameter("jurusan");
+
+    //     JurusanModel jurusanModel = new JurusanModel();
+    //     jurusanModel.setKodeJurusan(kdJurusan);
+    //     jurusanModel.setNmJurusan(nmJurusan);
+
+    //     this.jurusanService.saveJurusan(jurusanModel);
+    // }
 
     
     
