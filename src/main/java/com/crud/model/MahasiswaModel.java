@@ -3,9 +3,9 @@ package com.crud.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-// import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumn;
 // // import javax.persistence.ManyToMany;
-// import javax.persistence.ManyToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,9 +26,9 @@ public class MahasiswaModel {
     @Column(name="KODE_JURUSAN")
     private String kodeJurusan;
 
-    // @ManyToOne
-    // @JoinColumn(name="KODE_JURUSAN", nullable = true, insertable = false, updatable = false )
-    // private JurusanModel jurusanModel;
+    @ManyToOne
+    @JoinColumn(name="KODE_JURUSAN", nullable = true, insertable = false, updatable = false )
+    private JurusanModel jurusanModel;
 
     
 
@@ -38,12 +38,12 @@ public class MahasiswaModel {
     public void setKodeJurusan(String kodeJurusan) {
         this.kodeJurusan = kodeJurusan;
     }
-    // public JurusanModel getJurusanModel() {
-    //     return jurusanModel;
-    // }
-    // public void setJurusanModel(JurusanModel jurusanModel) {
-    //     this.jurusanModel = jurusanModel;
-    // }
+    public JurusanModel getJurusanModel() {
+        return jurusanModel;
+    }
+    public void setJurusanModel(JurusanModel jurusanModel) {
+        this.jurusanModel = jurusanModel;
+    }
     public String getKd_mhs() {
         return kd_mhs;
     }

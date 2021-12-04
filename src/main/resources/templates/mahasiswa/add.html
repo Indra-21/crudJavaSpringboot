@@ -19,10 +19,10 @@
 </head>
 <body>
     <form action="/crud/mahasiswa/action"  id="form-add-mahasiswa" method="post">
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="" class="col-form-label">Kode Jurusan</label> 
             <input type="text" name="kodeJurusan" id="" class="form-control" placeholder="Kode Mahasiswa">
-        </div>
+        </div> -->
         <div class="form-group">
                 <label for="" class="col-form-label">Kode Mahasiswa</label> 
                 <input type="text" name="kodeMahasiswa" id="" class="form-control" placeholder="Kode Mahasiswa">
@@ -44,10 +44,8 @@
             <label for="jurusan1">Jurusan</label>
             <select name="jurusan" id="jurusanId" class="form-control">
                 <optgroup label="Pilih Jurusan">
-                    <option selected disabled value="-Pilih-">-pilih-</option>
-                    <option value="Sistem Informasi">Sistem Informasi</option>
-                    <option value="Teknik Informatika">Teknik Informatika</option>
-                    <!-- <option th:each="jurusanModel:${lemparBacaJurusan}" th:value="${jurusanModel.kodeJurusan}" th:text="${jurusanModel.nmJurusan}"></option> -->
+                    <option selected disabled value=""></option>
+                    <option th:each="jurusanModel:${lemparBacaJurusan}" th:value="${jurusanModel.kodeJurusan}" th:text="${jurusanModel.nmJurusan}"></option>
                 </optgroup>
             </select>
         </div>

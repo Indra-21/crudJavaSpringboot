@@ -5,9 +5,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-// import com.crud.model.JurusanModel;
+import com.crud.model.JurusanModel;
 import com.crud.model.MahasiswaModel;
-// import com.crud.service.JurusanService;
+import com.crud.service.JurusanService;
 import com.crud.service.MahasiswaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,8 @@ public class MahasiswaController {
     @Autowired
     MahasiswaService mahasiswaService;
 
-    // @Autowired
-    // JurusanService jurusanService;
+    @Autowired
+    JurusanService jurusanService;
 
     // route mahasiswa
     @RequestMapping("/mahasiswa")
@@ -32,8 +32,8 @@ public class MahasiswaController {
     }
     // route mahasiswa add
     @RequestMapping("/mahasiswa/add")
-    public String add() {
-        // this.readJurusan(model);
+    public String add(Model model){
+        this.readJurusan(model);
         String html = "/mahasiswa/add";
         return html;
         
@@ -43,7 +43,7 @@ public class MahasiswaController {
     @RequestMapping("/mahasiswa/action")
     public String create(HttpServletRequest request) {
         // this.join(request);
-        String kJurusan = request.getParameter("kodeJurusan");
+        String kJurusan = request.getParameter("jurusan");
         String kodeMahasiswa = request.getParameter("kodeMahasiswa");
         String namaMahasiswa = request.getParameter("namaMahasiswa");
         String alamat = request.getParameter("alamat");
@@ -82,8 +82,9 @@ public class MahasiswaController {
 
         MahasiswaModel mahasiswaModel = new MahasiswaModel();
         mahasiswaModel = this.mahasiswaService.cariKey(kodeMahasiswa);
-
+        // this.readJurusan(model);
         model.addAttribute("editData", mahasiswaModel);
+        this.readJurusan(model);
         return "/mahasiswa/edit";
 
     }
@@ -105,6 +106,7 @@ public class MahasiswaController {
         String alamat = request.getParameter("alamat");
         String jenisKelamin = request.getParameter("jk");
         String status = request.getParameter("status");
+        String jurusan = request.getParameter("jurusan");
 
        
         
@@ -116,9 +118,10 @@ public class MahasiswaController {
         mahasiswaModel.setAlamat(alamat);
         mahasiswaModel.setJk(jenisKelamin);
         mahasiswaModel.setStatus(status);
+        mahasiswaModel.setKodeJurusan(jurusan);
 
         this.mahasiswaService.update(mahasiswaModel);
-        
+        // this.create(request);
         return "/mahasiswa/home";
     }
     // route untuk button hapus , ambil lemparan dari ajax kdmhs 
@@ -155,12 +158,12 @@ public class MahasiswaController {
     }
 
     // @RequestMapping("/mahasiswa/jurusan")
-    // public void readJurusan(Model model) {
-    //     List<JurusanModel> jurusanModelList;
-    //     jurusanModelList = this.jurusanService.bacaJurusan();
+    public void readJurusan(Model model) {
+        List<JurusanModel> jurusanModelList;
+        jurusanModelList = this.jurusanService.bacaJurusan();
 
-    //     model.addAttribute("lemparBacaJurusan", jurusanModelList);
-    // }
+        model.addAttribute("lemparBacaJurusan", jurusanModelList);
+    }
 
     // @RequestMapping("/mahasiswa/addJurusan")    
     // public String insertJurusan(HttpServletRequest request){
